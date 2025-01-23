@@ -25,7 +25,7 @@ jobs:
         run: |
           # Enable cross compilation for Windows (64-bit)
           GOOS=windows GOARCH=amd64 go build -o idle-game.exe
-      
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -41,6 +41,8 @@ jobs:
 
       - name: Upload Windows Binary
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./idle-game.exe
