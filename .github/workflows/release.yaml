@@ -1,0 +1,45 @@
+name: Build and Release for Windows
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.22"
+
+      - name: Build Windows Binary
+        run: |
+          # Enable cross compilation for Windows (64-bit)
+          GOOS=windows GOARCH=amd64 go build -o idle-game.exe
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          # We';; create a tag using the Github Actions run number to avoid collisions
+          # e.g. build-17
+          tag_name: build-${{ github.run_number }}
+          release_name: "Automated Build #${{ github.run_number }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Windows Binary
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./idle-game.exe
+          asset_name: "idle-game.exe"
+          asset_content_type: application/octet-stream
