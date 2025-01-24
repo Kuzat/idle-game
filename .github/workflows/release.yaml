@@ -16,6 +16,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          # xorg-dev provides the X11 headers like X11/Xlib.h
+          # libasound2-dev is commonly needed for audio
+          # libgl1-mesa-dev provides OpenGL libraries
+          sudo apt-get install -y xorg-dev libasound2-dev libgl1-mesa-dev
+
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
