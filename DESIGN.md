@@ -1,213 +1,325 @@
-# Initial design
-Below is a compact outline for a simple incremental (idle) crafting/clicker game with a 2×2 crafting grid that can expand later. The goal is to keep the scope small yet offer a satisfying sense of progression from foraging to mining and smelting.
+# Game Design Document
+
+## Table of Contents
+
+1. [Game Overview](#game-overview)
+    - [Game Concept](#game-concept)
+    - [Genre](#genre)
+    - [Platform](#platform)
+    - [Target Audience](#target-audience)
+2. [Gameplay Mechanics](#gameplay-mechanics)
+    - [Core Mechanics](#core-mechanics)
+    - [Game Flow](#game-flow)
+    - [Player Actions](#player-actions)
+    - [Controls](#controls)
+3. [Story and Narrative](#story-and-narrative)
+    - [Story Summary](#story-summary)
+    - [Characters](#characters)
+    - [World and Setting](#world-and-setting)
+4. [Levels and Environment](#levels-and-environment)
+    - [Level Design](#level-design)
+    - [Environment Art](#environment-art)
+5. [Art and Visual Style](#art-and-visual-style)
+    - [Visual Theme](#visual-theme)
+    - [Character Design](#character-design)
+    - [User Interface (UI) Design](#user-interface-ui-design)
+6. [Audio and Music](#audio-and-music)
+    - [Sound Design](#sound-design)
+    - [Music Style](#music-style)
+    - [Voice Acting](#voice-acting)
+7. [Technical Requirements](#technical-requirements)
+    - [Target Platform Specifications](#target-platform-specifications)
+    - [Game Engine and Tools](#game-engine-and-tools)
+    - [Performance Considerations](#performance-considerations)
+8. [Monetization Strategy](#monetization-strategy)
+    - [Pricing Model](#pricing-model)
+    - [In-Game Purchases](#in-game-purchases)
+    - [Advertising](#advertising)
+9. [Appendices](#appendices)
+    - [Concept Art](#concept-art)
+    - [Additional Documents](#additional-documents)
 
 ---
 
-## 1. Overall Progression Outline
+## Game Overview
 
-1. **Start**:  
-   - Manually gather basic resources by picking bushes (for Berries and Fibers) and collecting loose Rocks on the ground.  
-   - No tools required for these first actions.  
-   - Crafting grid is 2×2 at the beginning.
+### Game Concept
 
-2. **Early Game** (with a 2×2 Grid):  
-   - Craft the first **Stone Axe** or **Stone Pickaxe** out of very simple recipes.  
-   - Use those tools to chop small trees for Wood or mine slightly larger rocks for Stone.  
-   - Unlock a few additional upgrades and items.
+The game is a simple incremental (idle) crafting and clicker game where players begin by manually gathering basic resources like Berries, Fibers, and Rocks. Utilizing a 2×2 crafting grid, players craft basic tools and structures, progressing to mining and smelting ores. As players advance, they unlock grid expansions, allowing more complex recipes and automation structures. The game offers a satisfying progression from manual foraging to automated resource collection within a small, manageable scope.
 
-3. **Mid-Game** (expanding the grid):  
-   - Acquire more advanced resources: Copper Ore, Iron Ore.  
-   - Smelt them into Ingots using a **Furnace**.  
-   - Craft better tools (Copper, then Iron) to increase gathering speed.  
-   - Earn or craft an item that **expands the crafting grid** to 3×3 (or 3×4) to allow bigger, more complex recipes.
+### Genre
 
-4. **Late(ish) Game** (still small scope):  
-   - Automate some resource collection (idle gathering).  
-   - Possibly craft advanced structures (like an **Ore Drill** or **Lumberjack Hut**) that passively generate resources.  
+- **Idle/Incremental Game**
+- **Crafting and Resource Management**
+- **Clicker Game**
 
----
+### Platform
 
-## 2. Resource List & Gathering
+- **Primary**: Web Browser (HTML5)
+- **Secondary**: Mobile Devices (iOS and Android)
+- **Tertiary**: PC (Windows, macOS, Linux)
 
-Below is a proposed list of basic resources and how players initially obtain them:
+### Target Audience
 
-1. **Berries**  
-   - Found by picking **Bushes**.  
-   - Food item (if you want a small “energy” system or bonus).  
-   - Used sparingly in some recipes (e.g., to craft a simple “feed” for an automated gatherer or for a future cooking system).
-
-2. **Fibers**  
-   - Also from **Bushes**.  
-   - Very early crafting component (replaces “sticks” or “strings”).  
-   - Used in simple tools (lash together Rocks to make Stone Tools).
-
-3. **Rocks**  
-   - Collected from loose stones on the ground.  
-   - Early crafting resource to make stone tools.
-
-4. **Wood**  
-   - Gathered by chopping **Small Trees**.  
-   - A fundamental building and crafting component.
-
-5. **Stone**  
-   - Gathered by mining **Bigger Rocks** or from small quarries once you have a Stone Pickaxe.  
-   - Used to craft better tools and structures than those made just with Rocks.
-
-6. **Copper Ore**  
-   - Mined from Copper Veins.  
-   - Must be **smelted** into Copper Ingots in a Furnace.
-
-7. **Iron Ore**  
-   - Mined from Iron Veins (which might require at least a Stone or Copper Pickaxe).  
-   - Also smelted into Iron Ingots in a Furnace.
-
-8. **(Refined) Planks**  
-   - Process Wood with a **Saw** or a simple recipe in the 2×2 grid (e.g., 2 Wood → 2 Planks).  
-   - Used for building upgrades or better wooden structures.
-
-9. **Copper Ingots**  
-   - From smelting Copper Ore.  
-   - Used to craft Copper Tools (better speed, or access to higher-tier resources).
-
-10. **Iron Ingots**  
-    - From smelting Iron Ore.  
-    - Used to craft Iron Tools (even better speed, can access anything below steel or diamond-tier if you want to expand later).
+- **Age Range**: 10 and above
+- **Gamer Type**: Casual gamers, fans of idle and crafting games
+- **Interests**: Resource management, crafting mechanics, incremental progression, simple and accessible gameplay
 
 ---
 
-## 3. Simple Crafting Recipes (2×2 Grid)
+## Gameplay Mechanics
 
-Below are some example recipes that fit into a 2×2 grid. (Note: you can decide the exact arrangement within the squares. It could be top row for main materials, bottom row for Fibers, etc.)
+### Core Mechanics
 
-1. **Stone Pickaxe**  
-   - **Ingredients**: 2 Rocks + 2 Fibers  
-   - **Effect**: Allows mining of bigger rocks for **Stone**.  
-   - **Stat Benefit**: Increases gathered Stone per click or per second (if automated).
+- **Resource Gathering**: Players collect resources manually by clicking on objects like bushes and rocks.
+- **Crafting System**: A 2×2 grid used to combine resources into tools and structures; expands to 3×3 as the game progresses.
+- **Tool Upgrades**: Crafting better tools increases resource yields and unlocks new resource types.
+- **Automation**: Players build structures that automate resource collection, embodying the idle game aspect.
+- **Progression Loop**: Gather resources → Craft tools → Unlock new resources and recipes → Expand crafting grid → Automate processes.
 
-2. **Stone Axe**  
-   - **Ingredients**: 2 Wood + 2 Fibers  
-   - **Effect**: Allows chopping small to medium trees more efficiently, generating more Wood each time.
+### Game Flow
 
-3. **Saw (or Woodcutter’s Table)**  
-   - **Ingredients**: 2 Stone + 2 Wood  
-   - **Effect**: Used to convert Wood → Planks (or placed in a special slot if you want to keep the grid free).  
-   - Could also be a direct 2×2 grid craft that yields Planks as soon as you combine Wood in it.
+1. **Start**: Manual gathering of basic resources.
+2. **Early Game**: Craft initial tools using the 2×2 grid to improve resource collection.
+3. **Mid-Game**: Expand crafting grid, mine ores, smelt metals, and craft advanced tools.
+4. **Late Game**: Build automation structures to passively gather resources, enhancing the idle aspect.
+5. **Transition**: Potential to expand into more complex systems if the scope is increased.
 
-4. **Furnace**  
-   - **Ingredients**: 4 Stone  
-   - (You could require the 2×2 to be all Stone for simplicity.)  
-   - **Effect**: Allows smelting of Ore into Ingots.  
-   - Put Ore in, consume some Wood as fuel or Coal if you introduce it, produce Ingots.  
-   - This might be done in a special “Furnace UI” instead of the normal 2×2 grid, but it’s up to you.
+### Player Actions
 
-5. **Copper Pickaxe**  
-   - **Ingredients**: 2 Copper Ingots + 2 Fibers  
-   - **Effect**: More efficient mining, can break Iron Ore.  
+- **Clicking**: Manually collect resources from bushes, trees, rocks, and ores.
+- **Crafting**: Combine resources in the crafting grid to create tools and structures.
+- **Mining and Chopping**: Use tools to gather resources from larger sources.
+- **Smelting**: Process ores into ingots using the Furnace.
+- **Building**: Construct automation structures for passive resource generation.
+- **Upgrading**: Enhance tools and structures for better efficiency.
 
-6. **Copper Axe**  
-   - **Ingredients**: 2 Copper Ingots + 2 Planks (handle)  
-   - **Effect**: Chops larger trees more quickly, yields more Wood.
+### Controls
 
-7. **Iron Pickaxe**  
-   - **Ingredients**: 2 Iron Ingots + 2 Planks  
-   - **Effect**: Best gathering speed so far for stone, copper, iron.
-
-8. **Iron Axe**  
-   - **Ingredients**: 2 Iron Ingots + 2 Planks  
-   - **Effect**: Highest-level wood-chopping speed so far.  
-
-*(You can replicate this pattern for upgrades: e.g., Iron Sword if you want to add monsters, etc.)*
+- **Mouse Input** (Web/PC):
+    - Left-click to gather resources and navigate menus.
+    - Drag-and-drop items into the crafting grid.
+- **Touch Input** (Mobile Devices):
+    - Tap to collect resources and select menu options.
+    - Drag-and-drop with a touch interface for crafting.
+- **Accessibility**:
+    - Simple and intuitive controls suitable for all ages.
+    - Options for sound, music, and notifications.
 
 ---
 
-## 4. Upgrades & Grid Expansion
+## Story and Narrative
 
-1. **Crafting Table Upgrade**  
-   - **Ingredients**: A mid-tier recipe—maybe 4 Planks + 1 Copper Ingot.  
-   - **Effect**: Expands the 2×2 grid to **3×3**.  
-   - This unlocks more complex recipes (like additional structures, automation items, etc.).
+### Story Summary
 
-2. **Automation Structures** (optional small examples)  
-   - **Ore Drill** (3×3 recipe): 4 Iron Ingots + 4 Stone + 1 Copper Pickaxe.  
-     - Passively gathers Stone, Copper Ore, or Iron Ore over time.  
-   - **Lumberjack Hut** (3×3 recipe): 4 Planks + 2 Stone + 1 Copper Axe + 2 Fibers.  
-     - Passively gathers Wood over time.  
-   - **Bush Farm** (2×2 or 3×3): 4 Fibers + 4 Planks.  
-     - Gradually generates Berries and Fibers.
+In a serene and untamed wilderness, the player assumes the role of a resourceful pioneer aiming to harness nature's bounty. Starting with nothing but their hands, they gradually craft tools, explore the environment, and build structures. The narrative focuses on the journey from survival to mastery over the natural world, emphasizing self-sufficiency and progression.
 
----
+### Characters
 
-## 5. Core Idle Mechanics
+- **Player Character**:
+    - An anonymous pioneer representing the player.
+    - Embodies exploration, innovation, and growth.
+- **Non-Player Characters (Optional)**:
+    - Wildlife that can appear as part of the environment.
+    - No direct interactions to keep gameplay focused on mechanics.
 
-- **Manual Clicking**: At first, you (the player) click “Gather Bushes” or “Gather Rocks.” The yield is small, but it’s enough to craft your first Stone tool.  
-- **Tool Efficiency**: Holding better tools increases how much you gather or how fast you gather. In an idle sense, that might mean your “per click” yield is higher or your “gather per second” is higher if you have any passive generation.  
-- **Automation**: Once you have the right materials, you build small structures that collect resources for you over time.  
-- **Crafting Grid**:  
-  - 2×2 at the start.  
-  - A key milestone is upgrading to 3×3.  
-  - Possibly a further expansion to 3×4 or 4×4 if you want to extend the game.
+### World and Setting
 
----
-
-## 6. Example Flow (Step by Step)
-
-1. **Initial**  
-   - Click “Pick Bushes” → +1 Berry, +1 Fiber every time.  
-   - Click “Gather Rocks” → +1 Rock every time.
-
-2. **First Crafts (2×2)**  
-   - Craft Stone Pickaxe (2 Rocks + 2 Fibers).  
-   - Now you can click “Mine Stones” (bigger rocks) for +1 Stone, +1 Rock or some variable yield.  
-   - Craft Stone Axe (2 Wood + 2 Fibers) once you gather enough Wood from small trees.
-
-3. **Unlock Furnace**  
-   - Craft Furnace (4 Stone in the 2×2 grid).  
-   - Smelt Copper Ore → Copper Ingots.  
-   - Now you can craft Copper Tools.
-
-4. **Build Saw / Woodcutter’s Table**  
-   - Convert Wood → Planks.  
-   - Planks let you build more advanced items.
-
-5. **Crafting Table Upgrade**  
-   - 3×3 grid unlocked.  
-   - Build advanced automation structures (Drill, Lumberjack Hut, etc.).  
-   - Craft Iron tools for maximum early-game efficiency.
+- **Environment**:
+    - A lush wilderness with forests, rocks, and mineral veins.
+    - Simplified representation focusing on resource nodes.
+- **Atmosphere**:
+    - Calm and relaxing, encouraging casual play.
+- **Narrative Elements**:
+    - Environmental messages or tips guiding the player.
+    - Achievements or milestones marking progression.
 
 ---
 
-## 7. Keeping It “Small-Scale” but Flexible
+## Levels and Environment
 
-- You only need a handful of items:
-  - **Fibers**, **Berries**, **Rocks**, **Stone**, **Wood**, **Copper Ore**, **Iron Ore**, **Copper Ingots**, **Iron Ingots**, **Planks**.
-- You only need a handful of tools:
-  - **Stone**, **Copper**, **Iron** (Pickaxe/Axe).
-- You only need one major **structure** to process resources (the Furnace) and a saw or table to process Wood → Planks.  
-- A couple of “automation structures” can be introduced to give the game that idle/automation flair without bloating the design.
+### Level Design
+
+- **World Structure**:
+    - Abstract representation of a natural environment.
+    - No traditional levels; progression is through resource tiers and crafting.
+- **Resource Nodes**:
+    - **Bushes**: Provide Berries and Fibers.
+    - **Trees**: Small and medium trees yield Wood.
+    - **Rocks**: Yield Rocks and Stone.
+    - **Ore Veins**: Copper and Iron ores accessible with better tools.
+- **Progression**:
+    - New resource nodes unlock as the player crafts better tools.
+
+### Environment Art
+
+- **Visual Indicators**:
+    - Distinctive icons or sprites for each resource type.
+    - Visual upgrades to resource nodes as the player progresses.
+- **Animations**:
+    - Subtle animations when collecting resources (e.g., shaking bushes).
+- **Layout**:
+    - Simple and intuitive interface where resources are easily accessible.
 
 ---
 
-## 8. Possible Additions or Variations
+## Art and Visual Style
 
-- **Coal**: If you want an extra step in smelting (fuel management), you can add Coal as a resource from mining.  
-- **Different Tree Types** (e.g., Normal Tree, Pine Tree, Oak Tree) for variety, each offering slightly different wood yields or the same resource but at different rates.  
-- **Time-Based Growth**: Bushes and trees might regrow after some idle time.  
-- **Limited vs. Unlimited Inventory**: You proposed unlimited inventory, so you can avoid the complexity of storage management.  
-- **Quests or Achievements**: “Gather 100 Wood” → earn a special item or bonus to keep the sense of progression.  
-- **Expansion**: After the 3×3 grid is unlocked, you could keep going with more advanced metals (Silver, Gold, etc.) if you decide to scale up.
+### Visual Theme
+
+- **Style**:
+    - Minimalistic and clean graphics.
+    - Bright and soft color palette for a calming effect.
+- **Inspiration**:
+    - Games like "Forager" and "Clicker Heroes" for simplicity.
+- **Consistency**:
+    - Uniform art style across all assets for cohesiveness.
+
+### Character Design
+
+- **Player Representation**:
+    - Optional avatar or simply a cursor.
+- **Resource Nodes**:
+    - Stylized icons representing bushes, trees, rocks, and ores.
+- **Tools and Items**:
+    - Clear and distinguishable images for each tool and crafted item.
+
+### User Interface (UI) Design
+
+- **Layout**:
+    - Main screen displays resource nodes and current inventory.
+    - Crafting grid accessible via a dedicated button or always visible.
+- **Crafting Grid**:
+    - 2×2 grid expanding to 3×3 visually represented.
+    - Drag-and-drop functionality for combining items.
+- **Menus and HUD**:
+    - Resource counters displayed prominently.
+    - Tooltips provide information on resources and recipes.
+- **Feedback**:
+    - Visual cues for successful actions (e.g., resource collected).
 
 ---
 
-### Wrap-Up
+## Audio and Music
 
-This design gives you a straightforward incremental game loop:
+### Sound Design
 
-1. **Manual gathering** of fiber, berries, and rocks.  
-2. **First tools** crafted in a simple 2×2 recipe grid.  
-3. **Mining stone and ores**, chopping wood for bigger yields.  
-4. **Smelting** to obtain ingots.  
-5. **Tool Upgrades** leading to faster gathering.  
-6. **Crafting Table Upgrade** to expand the grid, unlocking advanced items.  
-7. **Automation** structures to gather resources passively.  
+- **Resource Collection**:
+    - Subtle sounds for collecting different resources (e.g., rustling for bushes, clinking for mining).
+- **Crafting**:
+    - Satisfying sound effects when crafting items or tools.
+- **Ambient Sounds**:
+    - Gentle environmental sounds to enhance immersion.
 
-Keep the scope tight with just a few resources and items, so the player experiences a clear beginning, middle, and “transition to bigger things” in your idle/clicker game.
+### Music Style
+
+- **Background Music**:
+    - Relaxing and loopable tracks.
+    - Possibly dynamic music that evolves as the player progresses.
+- **Genres**:
+    - Ambient, light instrumental melodies.
+- **Considerations**:
+    - Music should not be distracting; focus on enhancing the experience.
+
+### Voice Acting
+
+- **Implementation**:
+    - Likely minimal or none to maintain simplicity.
+- **Alternatives**:
+    - Use of sound effects or minimal vocal cues if necessary.
+
+---
+
+## Technical Requirements
+
+### Target Platform Specifications
+
+- **Web Browser**:
+    - Compatibility with major browsers (Chrome, Firefox, Safari).
+    - Optimized for HTML5 and JavaScript.
+- **Mobile Devices**:
+    - iOS 11.0 and above.
+    - Android 6.0 (Marshmallow) and above.
+    - Touchscreen support and responsive design.
+- **PC**:
+    - Windows 7 and above.
+    - macOS 10.12 and above.
+    - Linux distributions supporting necessary runtime environments.
+
+### Game Engine and Tools
+
+- **Game Engine**:
+    - Unity Engine (with WebGL export) or
+    - HTML5 with frameworks like Phaser or React.
+- **Development Tools**:
+    - Visual Studio Code or preferred IDE.
+    - Graphic editors (Adobe Photoshop, Illustrator, or equivalent).
+- **Version Control**:
+    - Git for source code management.
+
+### Performance Considerations
+
+- **Optimization**:
+    - Efficient code to ensure smooth performance on low-end devices.
+    - Lazy loading of assets to reduce initial load times.
+- **Compatibility**:
+    - Responsive design for various screen sizes.
+    - Touch and mouse input compatibility.
+- **Testing**:
+    - Regular testing on target devices and browsers.
+
+---
+
+## Monetization Strategy
+
+### Pricing Model
+
+- **Free-to-Play**:
+    - The game is free to access and play in its entirety.
+
+### In-Game Purchases
+
+- **Optional Microtransactions**:
+    - Cosmetic upgrades (e.g., themes, skins for tools).
+    - Time savers or boosters that do not impact core progression significantly.
+- **Fairness**:
+    - Ensuring that all content is accessible without purchases.
+    - Avoiding "pay-to-win" mechanics.
+
+### Advertising
+
+- **Implementation**:
+    - Non-intrusive ads, such as banner ads in designated areas.
+    - Optional rewarded ads for in-game bonuses.
+- **User Experience**:
+    - Maintaining a balance to not disrupt gameplay.
+
+---
+
+## Appendices
+
+### Concept Art
+
+*Include sketches, mock-ups, and visual references supporting the game's design.*
+
+- **Resource Icons**:
+    - Preliminary designs for Berries, Fibers, Rocks, etc.
+- **Crafting Grid UI**:
+    - Mock-up of the 2×2 and expanded 3×3 grid interfaces.
+- **Tools and Structures**:
+    - Visual concepts for pickaxes, axes, Furnace, and automation structures.
+
+### Additional Documents
+
+*Attach any other relevant documents, such as technical specs or design prototypes.*
+
+- **Recipe List**:
+    - Detailed spreadsheet of all crafting recipes.
+- **Progression Flowchart**:
+    - Visual representation of resource and crafting progression.
+- **User Interface Wireframes**:
+    - Detailed layouts of screens and menus.
+
+---
+
+**Note:** This design document outlines the foundational elements of the game based on the initial design notes. Adjustments and additions may be made as development progresses to enhance gameplay and user engagement.

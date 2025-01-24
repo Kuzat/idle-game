@@ -92,15 +92,16 @@ func (g *Game) Draw(screen *ebiten.Image) {
 // Layout takes the outside window size and returns the logical screen size
 // You can keep it simple for a 640x480 game.
 func (g *Game) Layout(outsideWith, outsideHeight int) (int, int) {
-	return 640, 480
+	return 1920, 1080
 }
 
 func main() {
 	game := NewGame()
 
 	// set up the window
-	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowSize(1920, 1080)
 	ebiten.SetWindowTitle("Idle Crafting Game")
+	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
 
 	// Run the game
 	if err := ebiten.RunGame(game); err != nil {
