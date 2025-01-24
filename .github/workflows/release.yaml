@@ -56,10 +56,13 @@ jobs:
         with:
           go-version: '1.23'
 
+#      - name: Install Rosetta (only needed if the runner is Apple Silicon and you want amd64)
+#        run: sudo softwareupdate --install-rosetta --agree-to-license
+
       - name: Build for macOS
         run: |
           mkdir -p dist
-          GOOS=darwin GOARCH=amd64 go build -o dist/idle-game-darwin-amd64
+          GOOS=darwin GOARCH=arm64 CGO_ENABLED=1 go build -o dist/idle-game-darwin-arm64
 
       - name: Upload macOS Artifact
         uses: actions/upload-artifact@v3
@@ -121,6 +124,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/idle-game-darwin-amd64
-          asset_name: "idle-game-darwin-amd64"
+          asset_path: dist/idle-game-darwin-arm64
+          asset_name: "idle-game-darwin-arm64"
           asset_content_type: application/octet-stream
