@@ -1,4 +1,4 @@
-name: Build and Release for Windows
+name: Build and Release All Platforms
 
 on:
   push:
@@ -21,17 +21,23 @@ jobs:
         with:
           go-version: "1.22"
 
-      - name: Build Windows Binary
+      - name: Build for Windows
         run: |
-          # Enable cross compilation for Windows (64-bit)
-          GOOS=windows GOARCH=amd64 go build -o idle-game.exe
+          GOOS=windows GOARCH=amd64 go build -o dist/idle-game-windows-amd64.exe
+
+      - name: Build for Linux
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o dist/idle-game-linux-amd64
+
+      - name: Build for macOS
+        run: |
+          GOOS=darwin GOARCH=amd64 go build -o dist/idle-game-darwin-amd64
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          # We';; create a tag using the Github Actions run number to avoid collisions
-          # e.g. build-17
+          # We'll name the tag with the GitHub Actions run number to avoid collisions
           tag_name: build-${{ github.run_number }}
           release_name: "Automated Build #${{ github.run_number }}"
           draft: false
@@ -45,6 +51,26 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./idle-game.exe
-          asset_name: "idle-game.exe"
+          asset_path: dist/idle-game-windows-amd64.exe
+          asset_name: "idle-game-windows-amd64.exe"
+          asset_content_type: application/octet-stream
+
+      - name: Upload Linux Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/idle-game-linux-amd64
+          asset_name: "idle-game-linux-amd64"
+          asset_content_type: application/octet-stream
+
+      - name: Upload macOS Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/idle-game-darwin-amd64
+          asset_name: "idle-game-darwin-amd64"
           asset_content_type: application/octet-stream
