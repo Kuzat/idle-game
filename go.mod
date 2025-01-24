@@ -1,6 +1,6 @@
 module github.com/Kuzat/idle-game
 
-go 1.22.5
+go 1.23.5
 
 require (
 	github.com/ebitengine/gomobile v0.0.0-20240911145611-4856209ac325 // indirect
