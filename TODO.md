@@ -1,0 +1,11 @@
+- [ ] Bush archetype: Should have position, sprite, resource and drops components
+- [ ] Player archetype: Only need inventory component for now
+- [ ] Render System: Should get all entities with sprite, and position and render them to the screen
+- [ ] Collection System: Should get all entities with, position, resource and drops. 
+  - Should check if mouse click happened and if it was inside sprite box, if it was get random drop
+  - from drops component. Then it should add the items, if any, to the inventory component. 
+- [ ] InventoryDisplay System: Should draw the inventory to screen. A simple text inventory.
+- [ ] Inventory UI: Have an inventory ui with items shown with quantity
+- [ ] Moveable items: Items should be clickable and when clicked will follow the mouse until clicked again to be put down
+- [ ] Add a rock node
+- [ ] Crafting System: Add components, archetypes, and systems to craft a simple item, axe, from items collected
